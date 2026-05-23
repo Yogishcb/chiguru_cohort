@@ -347,6 +347,19 @@
   .reveal { opacity: 1; transform: none; transition: opacity 0.7s ease, transform 0.7s ease; }
   .js-reveal-ready .reveal { opacity: 0; transform: translateY(20px); }
   .js-reveal-ready .reveal.visible { opacity: 1; transform: none; }
+.footer-email-link {
+  color: rgba(255,255,255,0.6);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+  padding: 0.08em 0.35em;
+  border-radius: 2px;
+  font-weight: 600;
+  font-style: normal;
+  box-decoration-break: clone;
+}
 </style>
 </head>
 <body>
@@ -860,44 +873,17 @@
     <div class="footer-col"><h4>People &amp; Partners</h4><ul><li><a href="#team">Our Team</a></li><li><a href="#partners">Partner Institutions</a></li><li><a href="#funders">Funder</a></li></ul></div>
     <div class="footer-col"><h4>Connect</h4><ul><li><a href="#collaborate">Collaborate with us</a></li><li><a href="#news">News &amp; Updates</a></li><li><a href="https://wellcomeopenresearch.org/articles/10-602" target="_blank">Protocol paper ↗</a></li><li><a href="https://iphbengaluru.res.in/projects/cah/ctrith" target="_blank">CTRITH / IPH ↗</a></li></ul></div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2025 Chiguru Adivasi Birth Cohort Study · Institute of Public Health Bengaluru</span>
-    <div class="footer-location"><span>📍</span><span>Chamarajanagar, Karnataka, India</span></div>
+  <div class="footer-dev">
+    This website was developed &amp; maintained by <span class="footer-dev-highlight">Dr. Yogish C B</span> &amp; <span class="footer-dev-highlight">Dr. Prashanth N S</span> with input from the Chiguru team.<br>
+    <span style="color:rgba(255,255,255,0.38);font-size:0.75rem;">Last updated: June 2024 · Version 1.0</span><br>
+    For feedback or corrections, please contact <a href="mailto:yogishcb@iphbengaluru.res.in" style="color:rgba(255,255,255,0.6);text-decoration:underline;">yogishcb@iphbengaluru.res.in</a>.
+  </div>
   </div>
   <div class="footer-dev">
-    This website was developed &amp; maintained by <span><mark>Dr. Yogish C B</mark></span> &amp; <span> <mark>Dr. Prashanth N S</mark></span> with input from the Chiguru team. For feedback or corrections, please contact <a href="mailto:yogishcb@iphbengaluru.res.in" style="color:rgba(255,255,255,0.6);text-decoration:underline;">yogishcb@iphbengaluru.res.in</a>.
+    This website was developed &amp; maintained by <span class="footer-dev-highlight">Dr. Yogish C B</span> &amp; <span class="footer-dev-highlight">Dr. Prashanth N S</span> with input from the Chiguru team. For feedback or corrections, please contact <a href="mailto:yogishcb@iphbengaluru.res.in" style="color:rgba(255,255,255,0.6);text-decoration:underline;">yogishcb@iphbengaluru.res.in</a>.
   </div>
 </footer>
 
-<!-- Draft banner -->
-<div style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:#1a1a14;border-top:2px solid #c8922a;padding:0.7rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;font-family:'Jost',sans-serif;">
-  <div style="display:flex;align-items:center;gap:0.8rem;">
-    <span style="background:#c8922a;color:#1a1a14;font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;flex-shrink:0;">Draft</span>
-    <span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">This is a draft website shared for internal review only. Content may contain errors or omissions — please send corrections to the team.</span>
-  </div>
-  <span style="font-size:0.75rem;color:rgba(255,255,255,0.25);white-space:nowrap;">Not for public circulation</span>
-</div>
-<style>footer { padding-bottom: 5rem !important; }</style>
-<script>
-  if ('IntersectionObserver' in window) {
-    document.body.classList.add('js-reveal-ready');
-    var reveals = document.querySelectorAll('.reveal');
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-    setTimeout(function() {
-      reveals.forEach(function(r) {
-        if (r.getBoundingClientRect().top < window.innerHeight) { r.classList.add('visible'); } else { observer.observe(r); }
-      });
-    }, 100);
-  }
-  var sections = document.querySelectorAll('section[id]');
-  var navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', function() {
-    var current = '';
-    sections.forEach(function(s) { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navLinks.forEach(function(a) { a.style.color = a.getAttribute('href') === '#' + current ? 'rgba(224,176,96,1)' : ''; });
-  });
 </script>
 </body>
 </html>
