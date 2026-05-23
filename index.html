@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHIGURU — Adivasi Birth Cohort Study</title>
+<title>Chiguru — Adivasi Birth Cohort Study</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -177,15 +177,40 @@
   #findings { background: var(--forest); color: white; }
   #findings .section-title { color: white; }
   #findings .section-body { color: rgba(255,255,255,0.6); }
-  .findings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; margin-top: 3rem; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
-  .finding-card { background: rgba(255,255,255,0.04); padding: 2.5rem 2rem; transition: background 0.2s; }
+  /* Featured headline finding — the focal disparity */
+  .findings-featured { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3rem; margin-top: 3rem; align-items: center; background: rgba(255,255,255,0.04); border: 1px solid rgba(200,146,42,0.28); border-radius: 4px; padding: 3rem 3.2rem; position: relative; overflow: hidden; }
+  .findings-featured::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--ochre); }
+  .ff-tag { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ochre-lt); font-weight: 600; margin-bottom: 1.1rem; }
+  .ff-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(5rem, 11vw, 8.5rem); font-weight: 400; color: var(--ochre-lt); line-height: 0.82; }
+  .ff-num sup { font-size: 0.34em; vertical-align: super; }
+  .ff-label { font-size: 0.98rem; color: rgba(255,255,255,0.82); line-height: 1.55; font-weight: 300; margin-top: 1.1rem; max-width: 330px; }
+  /* Comparison bars */
+  .ff-compare { display: flex; flex-direction: column; gap: 1.7rem; }
+  .compare-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.5rem; gap: 1rem; }
+  .compare-name { font-size: 0.8rem; color: rgba(255,255,255,0.72); letter-spacing: 0.02em; font-weight: 400; }
+  .compare-name span { display: block; font-size: 0.62rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+  .compare-val { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; line-height: 1; flex-shrink: 0; }
+  .compare-track { height: 14px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+  .compare-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+  .fill-cohort { background: var(--ochre); }
+  .fill-national { background: rgba(255,255,255,0.3); }
+  .visible .compare-fill.fill-cohort { width: 46%; }
+  .visible .compare-fill.fill-national { width: 18%; }
+  .cohort .compare-val { color: var(--ochre-lt); }
+  .national .compare-val { color: rgba(255,255,255,0.5); }
+  /* Secondary supporting stats — deliberately quieter */
+  .findings-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; margin-top: 1.5rem; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .finding-card { background: rgba(255,255,255,0.04); padding: 2.2rem 2rem; transition: background 0.2s; }
   .finding-card:hover { background: rgba(255,255,255,0.07); }
-  .finding-num { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; font-weight: 300; color: var(--ochre-lt); line-height: 1; margin-bottom: 0.5rem; }
-  .finding-num sup { font-size: 1.8rem; vertical-align: super; }
-  /* CHANGED: 0.78rem→0.82rem for finding labels so they're easier to read */
+  .finding-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(255,255,255,0.82); line-height: 1; margin-bottom: 0.5rem; }
+  .finding-num sup { font-size: 1.4rem; vertical-align: super; }
   .finding-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; line-height: 1.6; font-weight: 300; }
   .finding-source { font-size: 0.65rem; color: rgba(255,255,255,0.25); margin-top: 1rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .findings-coming { grid-column: 1 / -1; text-align: center; padding: 2.5rem; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06); }
+  .findings-coming { text-align: center; padding: 2rem; margin-top: 1.5rem; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); border-radius: 3px; }
+  @media (max-width: 760px) {
+    .findings-featured { grid-template-columns: 1fr; gap: 2rem; padding: 2.2rem 1.8rem; }
+    .findings-secondary { grid-template-columns: 1fr; }
+  }
   .coming-soon-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.15); border: 1px solid rgba(200,146,42,0.3); color: var(--ochre-lt); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 2px; margin-bottom: 0.8rem; }
   .coming-soon-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ochre); animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -308,14 +333,14 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .about-grid, .design-layout, .collab-layout, .funders-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .findings-grid, .partners-grid { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: 1fr 1fr; }
     .news-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
     .team-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
   }
   @media (max-width: 600px) {
     nav .nav-links { display: none; }
-    .findings-grid, .partners-grid { grid-template-columns: 1fr; }
+    .partners-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
     section { padding: 4rem 5vw; }
   }
@@ -326,7 +351,7 @@
 </head>
 <body>
 <nav>
-  <a href="#hero" class="nav-logo">CHIGURU<span>Adivasi Birth Cohort</span></a>
+  <a href="#hero" class="nav-logo">Chiguru<span>Adivasi Birth Cohort</span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#design">Study Design</a></li>
@@ -363,17 +388,17 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="section-label">Why this cohort matters</div>
-  <h2 class="section-title">Health equity begins<br>at birth</h2>
+  <h2 class="section-title">Health inequity begins<br>at birth</h2>
   <div class="about-grid">
     <div class="about-col reveal">
       <h3>The Adivasi health gap</h3>
       <p>Adivasi communities — India's indigenous forest-dwelling peoples — carry a disproportionate burden of malnutrition and developmental disadvantage. In Chamarajanagar district, the southernmost district in Karnataka, three communities (Soliga, Jenukuruba, and Bettakuruba) live in and around legally protected forest areas and have historically faced displacement, restricted access to healthcare, and under-representation in public health research.</p>
       <p>Chamarajanagar ranks 21st among 31 Karnataka districts on the Human Development Index, yet district-level averages consistently mask the far worse health outcomes of the Adivasi population living within it.</p>
-      <div class="highlight-box"><strong>No prior peer-reviewed prospective cohort study has specifically examined Adivasi communities in India or other LMICs.</strong> CHIGURU fills a critical evidence gap at the intersection of indigenous health and early childhood development.</div>
+      <div class="highlight-box"><strong>No prior peer-reviewed prospective cohort study has specifically examined Adivasi communities in India or other LMICs.</strong> Chiguru fills a critical evidence gap at the intersection of indigenous health and early childhood development.</div>
     </div>
     <div class="about-col reveal">
-      <h3>What makes CHIGURU unique</h3>
-      <p>CHIGURU is the <strong>first large-scale Adivasi birth cohort in India</strong>. It applies the Developmental Origins of Health and Disease (DoHaD) framework to understand how parental substance use — tobacco and alcohol — interacts with malnutrition, stress, and environmental exposures to shape child growth and early developmental outcomes from birth to age three.</p>
+      <h3>What makes Chiguru unique</h3>
+      <p>Chiguru is the <strong>first large-scale Adivasi birth cohort in India</strong>. It applies the Developmental Origins of Health and Disease (DoHaD) framework to understand how parental substance use — tobacco and alcohol — interacts with malnutrition, stress, and environmental exposures to shape child growth and early developmental outcomes from birth to age three.</p>
       <p>By following infants from the first months of life through age three, the cohort generates evidence that is not just novel scientifically, but actionable for the policies and programmes that determine how Adivasi children are served by the State.</p>
       <div class="stat-pull">
         <div class="stat-num">46<sup style="font-size:1.6rem;vertical-align:super">%</sup></div>
@@ -397,7 +422,7 @@
         <tr><td>Study period</td><td>March 2023 – October 2026 (current grant cycle) · <em style="color:var(--ochre);font-size:0.85em;">Funding being sought to continue for decades</em></td></tr>
         <tr><td>Enrolment began</td><td>May 2023</td></tr>
         <tr><td>Enrolment age</td><td>Infants aged 7–120 days, together with their mother, father and other household members</td></tr>
-        <tr><td>Target sample</td><td>650 newborns + their family members</td></tr>
+        <tr><td>Target sample</td><td>650 newborns + their families</td></tr>
         <tr><td>Enrolled (2025)</td><td>2,730 individuals including 821 postnatal women</td></tr>
         <tr><td>Primary outcome</td><td>Child growth: stunting (HAZ), wasting (WHZ), and underweight (WAZ) per WHO child growth standards</td></tr>
         <tr><td>Secondary outcome</td><td>Early childhood development: gross motor, fine motor, language, social domains (Malawi Developmental Assessment Tool)</td></tr>
@@ -405,9 +430,9 @@
       </table>
       <div class="protocol-card" style="margin-top:2rem;">
         <div class="pc-label">Protocol Paper · Under Review</div>
-        <div class="pc-title">CHIGURU Adivasi Birth Cohort Study: A Protocol for Examining the Effects of Parental Substance Use on Child Development in Southern Indian Adivasi Communities</div>
+        <div class="pc-title">Chiguru Adivasi Birth Cohort Study: A Protocol for Examining the Effects of Parental Substance Use on Child Development in Southern Indian Adivasi Communities</div>
         <a href="https://wellcomeopenresearch.org/articles/10-602" target="_blank">Read full protocol at Wellcome Open Research ↗</a>
-        <p style="margin-top:1.2rem;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.75;font-weight:300;">The grant from the DBT/Wellcome Trust India Alliance concludes in 2027. The research team is actively seeking financial support to sustain the CHIGURU Adivasi Birth Cohort as an extended generational study; the principal objective is to longitudinally assess the children of this community and their families over several decades, thereby establishing it as one of the few indigenous cohorts globally with substantial longitudinal depth.</p>
+        <p style="margin-top:1.2rem;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.75;font-weight:300;">The grant from the DBT/Wellcome Trust India Alliance concludes in 2027. The research team is actively seeking financial support to sustain the Chiguru Adivasi Birth Cohort as an extended generational study; the principal objective is to longitudinally assess the children of this community and their families over several decades, thereby establishing it as one of the few indigenous cohorts globally with substantial longitudinal depth.</p>
       </div>
     </div>
     <div class="reveal">
@@ -558,23 +583,45 @@
 <section id="findings">
   <div class="section-label" style="color:var(--ochre);">Early evidence</div>
   <h2 class="section-title">Key findings</h2>
-  <p class="section-body">Preliminary results from the first wave of CHIGURU data reveal striking health disparities within Adivasi communities that existing national surveys have consistently underestimated.</p>
-  <div class="findings-grid reveal">
-    <div class="finding-card"><div class="finding-num">46<sup>%</sup></div><div class="finding-label">Adivasi women of reproductive age classified as underweight (BMI &lt; 18.5 kg/m²)</div><div class="finding-source">CHIGURU cohort, 2025 · vs. 18% in NFHS-5 district data</div></div>
-    <div class="finding-card"><div class="finding-num">2,730</div><div class="finding-label">Adivasi individuals enrolled, including 1,136 women of reproductive age</div><div class="finding-source">CHIGURU cohort enrolment, 2025</div></div>
-    <div class="finding-card"><div class="finding-num">80<sup>%</sup></div><div class="finding-label">of enrolled women of reproductive age are postnatal women — the primary cohort participants</div><div class="finding-source">CHIGURU cohort, 2025</div></div>
-    <div class="findings-coming">
-      <div class="coming-soon-tag">More findings coming</div>
-      <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;font-weight:300;">Child growth outcomes and developmental milestone data from follow-up waves will be published here as analyses are completed.</p>
+  <p class="section-body">Preliminary results from the first wave of Chiguru data reveal striking health disparities within Adivasi communities that existing national surveys have consistently underestimated.</p>
+  <div class="findings-featured reveal">
+    <div class="ff-stat">
+      <div class="ff-tag">The headline disparity</div>
+      <div class="ff-num">46<sup>%</sup></div>
+      <div class="ff-label">of Adivasi women of reproductive age are underweight (BMI &lt; 18.5 kg/m²) — more than double the district figure for all women.</div>
     </div>
+    <div class="ff-compare">
+      <div class="compare-row cohort">
+        <div class="compare-head">
+          <div class="compare-name">Adivasi women<span>Chiguru cohort · 2025</span></div>
+          <div class="compare-val">46%</div>
+        </div>
+        <div class="compare-track"><div class="compare-fill fill-cohort"></div></div>
+      </div>
+      <div class="compare-row national">
+        <div class="compare-head">
+          <div class="compare-name">All women, Chamarajanagar<span>NFHS-5 district data</span></div>
+          <div class="compare-val">18%</div>
+        </div>
+        <div class="compare-track"><div class="compare-fill fill-national"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="findings-secondary reveal">
+    <div class="finding-card"><div class="finding-num">2,730</div><div class="finding-label">Adivasi individuals enrolled, including 1,136 women of reproductive age</div><div class="finding-source">Chiguru cohort enrolment, 2025</div></div>
+    <div class="finding-card"><div class="finding-num">80<sup>%</sup></div><div class="finding-label">of enrolled women of reproductive age are postnatal women — the primary cohort participants</div><div class="finding-source">Chiguru cohort, 2025</div></div>
+  </div>
+  <div class="findings-coming reveal">
+    <div class="coming-soon-tag">More findings coming</div>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;font-weight:300;">Child growth outcomes and developmental milestone data from follow-up waves will be published here as analyses are completed.</p>
   </div>
 </section>
 
 <!-- TEAM -->
 <section id="team">
-  <div class="section-label">The people behind CHIGURU</div>
+  <div class="section-label">The people behind Chiguru</div>
   <h2 class="section-title">Our team</h2>
-  <p class="section-body">CHIGURU is driven by a multidisciplinary team of researchers, clinicians, and field staff with deep roots in the Chamarajanagar community.</p>
+  <p class="section-body">Chiguru is driven by a multidisciplinary team of researchers, clinicians, and field staff with deep roots in the Chamarajanagar community.</p>
   <div class="team-category reveal">
     <div class="team-category-label">Institute of Public Health, Bengaluru</div>
     <div class="team-grid">
@@ -617,7 +664,7 @@
 <section id="partners">
   <div class="section-label">Institutions &amp; Collaborators</div>
   <h2 class="section-title">Partner institutions</h2>
-  <p class="section-body">CHIGURU is a collaborative effort across leading public health institutions, community organisations, and government bodies in India, united by a shared commitment to Adivasi health equity.</p>
+  <p class="section-body">Chiguru is a collaborative effort across leading public health institutions, community organisations, and government bodies in India, united by a shared commitment to Adivasi health equity.</p>
   <div class="partner-category reveal">
     <div class="partner-category-label">Implementation Partners</div>
     <div class="partners-grid">
@@ -625,7 +672,7 @@
         <img src="https://raw.githubusercontent.com/daktre/chiguru-cohort/80f9635df2b0c827fa2c0122473eeb2f729a4b2f/20th%20Year%20Anniversary%20IPH%20logo%20v1.png" alt="Institute of Public Health, Bengaluru" class="partner-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
         <div class="partner-abbr" style="display:none;">IPH</div>
         <div class="partner-name">Institute of Public Health, Bengaluru</div>
-        <div class="partner-desc">Lead institution and home of CTRITH — the Centre for Training, Research and Innovation in Tribal Health — under whose mandate CHIGURU was established.</div>
+        <div class="partner-desc">Lead institution and home of CTRITH — the Centre for Training, Research and Innovation in Tribal Health — under whose mandate Chiguru was established.</div>
         <span class="partner-link">iphbengaluru.res.in ↗</span>
       </a>
       <a href="https://phfi.org/bengaluru" target="_blank" class="partner-card">
@@ -639,14 +686,14 @@
         <img src="https://raw.githubusercontent.com/daktre/chiguru-cohort/main/logo/JSS.png" alt="JSS Medical College Mysore" class="partner-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
         <div class="partner-abbr" style="display:none;">JSS</div>
         <div class="partner-name">JSS Medical College, Mysore</div>
-        <div class="partner-desc">Clinical partner institution providing medical expertise and infrastructure for CHIGURU's health assessment components in southern Karnataka.</div>
+        <div class="partner-desc">Clinical partner institution providing medical expertise and infrastructure for Chiguru's health assessment components in southern Karnataka.</div>
         <span class="coming-soon-tag" style="display:inline-flex;margin-top:1rem;font-size:0.65rem;background:rgba(200,146,42,0.1);border:1px solid rgba(200,146,42,0.25);color:var(--ochre);padding:0.3rem 0.7rem;letter-spacing:0.12em;text-transform:uppercase;">Details coming soon</span>
       </div>
       <a href="https://www.indiaalliance.org" target="_blank" class="partner-card">
         <img src="https://raw.githubusercontent.com/daktre/chiguru-cohort/main/logo/India%20Alliance_Colour.png" alt="DBT Wellcome Trust India Alliance" class="partner-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
         <div class="partner-abbr" style="display:none;">IA</div>
         <div class="partner-name">DBT Wellcome Trust India Alliance</div>
-        <div class="partner-desc">Primary funder of CTRITH, the institutional home of CHIGURU. The India Alliance is an independent public charity supporting health and biomedical research in India.</div>
+        <div class="partner-desc">Primary funder of CTRITH, the institutional home of Chiguru. The India Alliance is an independent public charity supporting health and biomedical research in India.</div>
         <span class="partner-link">indiaalliance.org ↗</span>
       </a>
     </div>
@@ -657,14 +704,14 @@
       <div class="partner-card">
         <div class="partner-abbr">ZBGAS</div>
         <div class="partner-name">Zilla Budakattu Girijana Abhivruddhi Sangha</div>
-        <div class="partner-desc">A community-based organisation (CBO) representing the Soliga, Jenukuruba, and Bettakuruba peoples of Chamarajanagar district. ZBGAS serves as the primary community gatekeeper for CHIGURU, facilitating trust-building, participant identification, and culturally appropriate engagement across Adivasi hamlets.</div>
+        <div class="partner-desc">A community-based organisation (CBO) representing the Soliga, Jenukuruba, and Bettakuruba peoples of Chamarajanagar district. ZBGAS serves as the primary community gatekeeper for Chiguru, facilitating trust-building, participant identification, and culturally appropriate engagement across Adivasi hamlets.</div>
         <span class="partner-link">Community-based organisation</span>
       </div>
       <a href="https://www.vgkk.in" target="_blank" class="partner-card">
         <img src="https://raw.githubusercontent.com/daktre/chiguru-cohort/main/logo/Vgkk.jpeg" alt="Vivekananda Girijana Kalyana Kendra" class="partner-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
         <div class="partner-abbr" style="display:none;">VGKK</div>
         <div class="partner-name">Vivekananda Girijana Kalyana Kendra</div>
-        <div class="partner-desc">Based in BR Hills, provides ancillary care and laboratory support for CHIGURU. Home base of Study Lead Dr. Tanya Seshadri. Delivers culturally-grounded health services to Adivasi communities.</div>
+        <div class="partner-desc">Based in BR Hills, provides ancillary care and laboratory support for Chiguru. Home base of Study Lead Dr. Tanya Seshadri. Delivers culturally-grounded health services to Adivasi communities.</div>
         <span class="partner-link">vgkk.in ↗</span>
       </a>
       <div class="partner-card">
@@ -682,7 +729,7 @@
         <img src="https://raw.githubusercontent.com/daktre/chiguru-cohort/main/logo/st%20johs%20medical.svg" alt="St. John's Research Institute Bengaluru" class="partner-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
         <div class="partner-abbr" style="display:none;">SJRI</div>
         <div class="partner-name">St. John's Research Institute, Bengaluru</div>
-        <div class="partner-desc">Anthropometry and phlebotomy training, certification, and quality assurance for CHIGURU's health assessment teams.</div>
+        <div class="partner-desc">Anthropometry and phlebotomy training, certification, and quality assurance for Chiguru's health assessment teams.</div>
         <span class="coming-soon-tag" style="display:inline-flex;margin-top:1rem;font-size:0.65rem;background:rgba(200,146,42,0.1);border:1px solid rgba(200,146,42,0.25);color:var(--ochre);padding:0.3rem 0.7rem;letter-spacing:0.12em;text-transform:uppercase;">Learn more</span>
       </div>
       <div class="partner-card">
@@ -700,7 +747,7 @@
       <a href="https://phfi.org/phfi-center#iprc13" target="_blank" class="partner-card">
         <div class="partner-abbr">CDLR</div>
         <div class="partner-name">PHFI Centre for Developmental and Lifecourse Research</div>
-        <div class="partner-desc">Based in Bengaluru, the CDLR shares CHIGURU's DoHaD framework and hosts the MAASTHI urban birth cohort — enabling cross-cohort comparisons between urban and Adivasi populations across Karnataka.</div>
+        <div class="partner-desc">Based in Bengaluru, the CDLR shares Chiguru's DoHaD framework and hosts the MAASTHI urban birth cohort — enabling cross-cohort comparisons between urban and Adivasi populations across Karnataka.</div>
         <span class="partner-link">phfi.org ↗</span>
       </a>
       <div class="partner-card partner-coming">
@@ -717,11 +764,11 @@
 <section id="funders">
   <div class="section-label">Funding &amp; Support</div>
   <h2 class="section-title">Our funder</h2>
-  <p class="section-body">CHIGURU is funded by the DBT/Wellcome Trust India Alliance, whose sustained support has made this work possible at a scale and depth previously absent in Adivasi health research.</p>
+  <p class="section-body">Chiguru is fully funded by the DBT/Wellcome Trust India Alliance, whose sustained support has made this work possible at a scale and depth previously absent in Adivasi health research.</p>
   <div class="funders-layout reveal" style="grid-template-columns: 1fr;">
     <div class="funder-card" style="max-width: 820px;">
       <div class="funder-name">DBT/Wellcome Trust India Alliance</div>
-      <div class="funder-desc">The India Alliance is an independent public charity in India that funds health and biomedical research. CHIGURU operates under the Centre for Training, Research and Innovation in Tribal Health (CTRITH), established through an India Alliance grant at the Institute of Public Health, Bengaluru. The current grant cycle concludes in 2027, and the team is actively seeking partners to sustain the cohort as a multi-decade generational study.</div>
+      <div class="funder-desc">The India Alliance is an independent public charity in India that funds health and biomedical research. Chiguru operates under the Centre for Training, Research and Innovation in Tribal Health (CTRITH), established through an India Alliance grant at the Institute of Public Health, Bengaluru. The current grant cycle concludes in 2027, and the team is actively seeking partners to sustain the cohort as a multi-decade generational study.</div>
       <a href="https://iphbengaluru.res.in/projects/cah/ctrith" target="_blank" class="funder-grant" style="display:inline-block;text-decoration:none;border-bottom:1px solid rgba(139,94,60,0.4);padding-bottom:1px;transition:color 0.2s;">Grant: CTRITH — Centre for Training, Research and Innovation in Tribal Health ↗</a>
     </div>
   </div>
@@ -730,21 +777,21 @@
 <!-- COLLABORATE -->
 <section id="collaborate">
   <div class="section-label" style="color:var(--ochre);">Work with us</div>
-  <h2 class="section-title">Collaborate with CHIGURU</h2>
+  <h2 class="section-title">Collaborate with Chiguru</h2>
   <div class="collab-layout">
     <div>
       <p class="collab-lead">We welcome collaborations with researchers, institutions, and funders who share our commitment to understanding and improving the health of India's most marginalised children.</p>
       <div class="collab-types">
-        <div class="collab-type"><div class="collab-icon">🔬</div><div class="collab-text"><h4>Research collaboration</h4><p>Joint sub-studies, nested research, or methodological partnerships using CHIGURU infrastructure and data.</p></div></div>
-        <div class="collab-type"><div class="collab-icon">📊</div><div class="collab-text"><h4>Data access</h4><p>Proposals for access to CHIGURU datasets for independent analysis or cross-cohort comparisons.</p></div></div>
-        <div class="collab-type"><div class="collab-icon">🎓</div><div class="collab-text"><h4>Student placements &amp; fellowships</h4><p>Opportunities for PhD, postdoc, and MPH students to work within the CHIGURU field team.</p></div></div>
-        <div class="collab-type"><div class="collab-icon">🏛️</div><div class="collab-text"><h4>Policy partnerships</h4><p>Engagement with government and non-government stakeholders to translate CHIGURU findings into action for Adivasi communities.</p></div></div>
+        <div class="collab-type"><div class="collab-icon">🔬</div><div class="collab-text"><h4>Research collaboration</h4><p>Joint sub-studies, nested research, or methodological partnerships using Chiguru infrastructure and data.</p></div></div>
+        <div class="collab-type"><div class="collab-icon">📊</div><div class="collab-text"><h4>Data access</h4><p>Proposals for access to Chiguru datasets for independent analysis or cross-cohort comparisons.</p></div></div>
+        <div class="collab-type"><div class="collab-icon">🎓</div><div class="collab-text"><h4>Student placements &amp; fellowships</h4><p>Opportunities for PhD, postdoc, and MPH students to work within the Chiguru field team.</p></div></div>
+        <div class="collab-type"><div class="collab-icon">🏛️</div><div class="collab-text"><h4>Policy partnerships</h4><p>Engagement with government and non-government stakeholders to translate Chiguru findings into action for Adivasi communities.</p></div></div>
         <div class="collab-type"><div class="collab-icon">💰</div><div class="collab-text"><h4>Funding partnerships</h4><p>Support to sustain and scale the cohort beyond its current grant cycle, including bridge funding and expansion to new communities.</p></div></div>
       </div>
     </div>
     <div>
       <div class="contact-form-placeholder">
-        <p>To initiate a collaboration or express interest in supporting CHIGURU, please get in touch with our team.</p>
+        <p>To initiate a collaboration or express interest in supporting Chiguru, please get in touch with our team.</p>
         <input type="text" class="contact-field" placeholder="Your name">
         <input type="email" class="contact-field" placeholder="Email address">
         <input type="text" class="contact-field" placeholder="Institution / Organisation">
@@ -766,7 +813,7 @@
     </a>
     <a href="https://wellcomeopenresearch.org/articles/10-602" target="_blank" class="pub-item">
       <div class="pub-year">2025</div>
-      <div><div class="pub-tag">Protocol · Wellcome Open Research · Under Review</div><div class="pub-title">CHIGURU Adivasi Birth Cohort Study: A Protocol for Examining the Effects of Parental Substance Use on Child Development in Southern Indian Adivasi Communities</div><div class="pub-authors">Prafulla Shriyan(*), Yogish Channa Basappa(*), Giridhara R Babu, Tanya Seshadri, Maithili Karthik, Upendra Bhojani, Deepa Bhat, Suresh Siddappa Shapeti, Prashanth N Srinivas (*equal contribution)</div><div class="pub-journal">Wellcome Open Research, 2025</div></div>
+      <div><div class="pub-tag">Protocol · Wellcome Open Research · Under Review</div><div class="pub-title">Chiguru Adivasi Birth Cohort Study: A Protocol for Examining the Effects of Parental Substance Use on Child Development in Southern Indian Adivasi Communities</div><div class="pub-authors">Prafulla Shriyan(*), Yogish Channa Basappa(*), Giridhara R Babu, Tanya Seshadri, Maithili Karthik, Upendra Bhojani, Deepa Bhat, Suresh Siddappa Shapeti, Prashanth N Srinivas (*equal contribution)</div><div class="pub-journal">Wellcome Open Research, 2025</div></div>
     </a>
     <a href="https://www.frontiersin.org/journals/global-womens-health/articles/10.3389/fgwh.2025.1684392/full" target="_blank" class="pub-item">
       <div class="pub-year">2025</div>
@@ -784,8 +831,8 @@
   <div class="section-label">Updates</div>
   <h2 class="section-title">News &amp; updates</h2>
   <div class="news-grid reveal">
-    <div class="news-card"><div class="news-date">2025 · Enrolment milestone</div><div class="news-title">2,730 participants enrolled in the CHIGURU cohort</div><div class="news-body">The CHIGURU team has reached a significant enrolment milestone with 2,730 Adivasi individuals enrolled, including 821 postnatal women and their family members across hamlets in Chamarajanagar district.</div></div>
-    <div class="news-card"><div class="news-date">2025 · Publication</div><div class="news-title">Policy brief published on anaemia in Adivasi women</div><div class="news-body">Drawing on early CHIGURU findings, a policy brief in Frontiers in Global Women's Health calls for tailored, multisectoral interventions addressing the disproportionate anaemia burden in Adivasi women in Karnataka.</div></div>
+    <div class="news-card"><div class="news-date">2025 · Enrolment milestone</div><div class="news-title">2,730 participants enrolled in the Chiguru cohort</div><div class="news-body">The Chiguru team has reached a significant enrolment milestone with 2,730 Adivasi individuals enrolled, including 821 postnatal women and their family members across hamlets in Chamarajanagar district.</div></div>
+    <div class="news-card"><div class="news-date">2025 · Publication</div><div class="news-title">Policy brief published on anaemia in Adivasi women</div><div class="news-body">Drawing on early Chiguru findings, a policy brief in Frontiers in Global Women's Health calls for tailored, multisectoral interventions addressing the disproportionate anaemia burden in Adivasi women in Karnataka.</div></div>
     <div class="news-card news-placeholder"><div class="news-date">Coming soon</div><div class="news-title">Next update</div><div class="news-body">Quarterly updates on cohort progress, publications, and events will appear here.</div></div>
   </div>
 </section>
@@ -805,16 +852,16 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">CHIGURU</div>
+      <div class="footer-brand">Chiguru</div>
       <div class="footer-tagline">The first leaves tell the whole tree's story.</div>
       <div style="font-size:0.75rem;color:rgba(255,255,255,0.25);line-height:1.7;font-weight:300;">Established May 2023<br>Chamarajanagar District, Karnataka, India</div>
     </div>
-    <div class="footer-col"><h4>Study</h4><ul><li><a href="#about">About CHIGURU</a></li><li><a href="#design">Study Design</a></li><li><a href="#findings">Key Findings</a></li><li><a href="#publications">Publications</a></li></ul></div>
+    <div class="footer-col"><h4>Study</h4><ul><li><a href="#about">About Chiguru</a></li><li><a href="#design">Study Design</a></li><li><a href="#findings">Key Findings</a></li><li><a href="#publications">Publications</a></li></ul></div>
     <div class="footer-col"><h4>People &amp; Partners</h4><ul><li><a href="#team">Our Team</a></li><li><a href="#partners">Partner Institutions</a></li><li><a href="#funders">Funder</a></li></ul></div>
     <div class="footer-col"><h4>Connect</h4><ul><li><a href="#collaborate">Collaborate with us</a></li><li><a href="#news">News &amp; Updates</a></li><li><a href="https://wellcomeopenresearch.org/articles/10-602" target="_blank">Protocol paper ↗</a></li><li><a href="https://iphbengaluru.res.in/projects/cah/ctrith" target="_blank">CTRITH / IPH ↗</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 CHIGURU Adivasi Birth Cohort Study · Institute of Public Health, Bengaluru</span>
+    <span>© 2025 Chiguru Adivasi Birth Cohort Study · Institute of Public Health, Bengaluru</span>
     <div class="footer-location"><span>📍</span><span>Chamarajanagar, Karnataka, India</span></div>
   </div>
   <div class="footer-dev">
